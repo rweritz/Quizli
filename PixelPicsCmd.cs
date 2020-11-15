@@ -23,27 +23,25 @@ namespace Quizli
             
             var widthOption = new Option<int>("--width", () => 1600, "the width in pixel (px) of the best quality picture");
             widthOption.AddAlias("-w");
-            folderOption.IsRequired = false;
+            widthOption.IsRequired = false;
             AddOption(widthOption);
             
             var heightOption = new Option<int>("--height",() => 1200, "the heigth in pixel (px) of the best quality picture");
             heightOption.AddAlias("-h");
-            folderOption.IsRequired = false;
+            heightOption.IsRequired = false;
             AddOption(heightOption);
             
-            var wIncOption = new Option<int>("--width-increment", () => 4, "the pixel count to increment the width per picture");
-            wIncOption.AddAlias("-wi");
-            folderOption.IsRequired = false;
+            var wIncOption = new Option<int>("--w-inc", () => 4, "the pixel count to increment the width per picture");
+            wIncOption.IsRequired = false;
             AddOption(wIncOption);
             
-            var hIncOption = new Option<int>("--height-increment",() => 3, "the pixel count to increment the height per picture");
-            hIncOption.AddAlias("-hi");
-            folderOption.IsRequired = false;
+            var hIncOption = new Option<int>("--h-inc", () => 3, "the pixel count to increment the height per picture");
+            hIncOption.IsRequired = false;
             AddOption(hIncOption);
             
             var imageCountOption = new Option<int>("--image-count", () => 25, "count of images used in the result pdf");
             imageCountOption.AddAlias("-c");
-            folderOption.IsRequired = false;
+            imageCountOption.IsRequired = false;
             AddOption(imageCountOption);
 
             Handler = CommandHandler.Create<string, int, int, int, int, int>(Execute);
@@ -55,7 +53,6 @@ namespace Quizli
 
             var imageFilenames = Directory.EnumerateFiles(folder).Where(f => f.EndsWith(fileType)).ToList();
             var xImages = CreateXImages(imageFilenames, width, height, wInc, hInc, imageCount);
-            //var xImages = CreateXImages(imageFilenames, 4, 3, 50, 1200, 1600);
             
             GeneratePdf(xImages, Path.Combine(folder, $"result.pdf"));
         }
