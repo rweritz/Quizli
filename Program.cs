@@ -6,13 +6,12 @@ namespace Quizli
     {
         static void Main(string[] args)
         {
-            
-            var quizCmd = new QuizCmd();
+            var rootCommand = new RootCommand("quiz");
+            rootCommand.AddAlias("q");
             var pixelPicsCmd = new PixelPicsCmd();
-            quizCmd.AddCommand(pixelPicsCmd);
+            rootCommand.AddCommand(pixelPicsCmd);
 
-            quizCmd.InvokeAsync(args).Wait();
-            pixelPicsCmd.InvokeAsync(args).Wait();
+            rootCommand.InvokeAsync(args).Wait();
         }
 
     }
